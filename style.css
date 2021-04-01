@@ -1,0 +1,832 @@
+/* CUSTOM PROPERTIES */
+:root {
+    --first-color: #d90062;
+    ;
+    --first-alpha-color: rgba(217, 0, 98, 0.75);
+    --second-color: #14192d;
+    --second-alpha-color: rgba(20, 25, 45, 0.75);
+    --third-color: #501464;
+    --third-alpha-color: rgba(80, 20, 100, 0.75);
+    --white-color: #fff;
+    --gray-light-color: #f3f3f3;
+    --gray-color: #ccc;
+    --gray-dark-color: #666;
+    --black-color: #000;
+    --link-color: #509ee3;
+    --title-color: #333;
+    --text-color: #222;
+    --white-alpha-color: rgba(255, 255, 255, 0.5);
+    --black-alpha-color: rgba(0, 0, 0, 0.5);
+    --font: "Raleway", sans-serif;
+    --max-widht: 1200px;
+    --header-hight: 4rem;
+}
+
+/* RESET */
+html {
+    box-sizing: border-box;
+    font-family: var(--font);
+    font-size: 16px;
+    /* Habilitar el efecto de desplazamiento */
+    scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    /* Esta propiedad nos sirve para definir que pasa con lo que desborda contenedor*/
+    overflow-x: hidden;
+    color: var(--text-color)
+}
+
+a {
+    color: var(--link-color);
+    transition: all(0.5s ease-out);
+}
+
+
+a:hover {
+    opacity: 0.75;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+h5 {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+h6 {
+    margin: 0;
+    font-size: 0.7rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+p {
+    line-height: 1.6;
+}
+
+
+
+/* COMPONENTS */
+
+/* Carousel */
+
+/* Creamos una animación */
+@keyframes carousel-slide {
+    0% {
+transform: translateX(0%);
+
+    }
+    25% {
+transform: translateX(-25%);
+
+    }
+    50% {
+transform: translateX(-50%);
+
+    }
+    75% {
+transform: translateX(-75%);
+ 
+    }
+}
+
+/* Añadimos estilos al contenedor */
+.carousel {
+    margin: 2rem auto;
+    padding: 2rem 0;
+    max-width: 800px;
+    text-align: center;
+    overflow-x: hidden;
+    background-color: var(--carousel-bg-color);
+}
+
+/* Usamos flexbox, con el fin de poder colocar los elementos en fila, 
+   además de agregar como transición, una transformacion */
+.carousel .slides {
+    padding-left: 0;
+    /* 100% Por cada slide */
+    width: 400%;
+    display: flex;
+    list-style: none;
+    transition: transform .5s ease-in-out;
+    /* Asignamos la animación que generamos*/
+    animation: carousel-slide 12s ease-in-out 3s;
+}
+
+
+.carousel input {
+    display: none;
+}
+
+.carousel label {
+    border: medium solid var(--black-color);
+    border-radius: 50%;
+    margin: 0 .25rem;
+    /* Cambiamos para que los elementos no trabajen en linea */
+    display: inline-block;
+    width: .75rem;
+    height: .75rem;
+    cursor: pointer;
+}
+
+/* Cuando el input, esté checked, mediante el selector "~" mueve el hermano que tienes al lado  */
+/* Los porcentajes se dividen entre el número de elementos totales, en este caso son 4 */
+ #slide-1:checked ~ .slides {
+    transform: translateX(0%); 
+}
+
+ #slide-2:checked~.slides {
+     transform: translateX(-25%);
+ }
+
+  #slide-3:checked~.slides {
+      transform: translateX(-50%);
+  }
+
+   #slide-4:checked~.slides {
+       transform: translateX(-75%);
+   }
+
+   /* Colocamos un color negro, a los puntos cuando el slide se encuentre checked */
+   #slide-1:checked~.slides-nav label#dot-1,
+   #slide-2:checked~.slides-nav label#dot-2,
+   #slide-3:checked~.slides-nav label#dot-3,
+   #slide-4:checked~.slides-nav label#dot-4 {
+       background-color: var(--gray-dark-color);
+   }
+
+
+/* Contact-form */
+.contact-form {
+    margin: 2rem auto;
+    padding: 1rem;
+    max-width: 800px;
+}
+
+.contact-form > * {
+    padding: .5rem;
+    margin: 1rem auto;
+    display: block;
+    width: 100%;
+}
+
+/* Cambiamos el tamaño y tipo de fuente, tanto de los input, como el textarea */
+.contact-form input,
+.contact-form textarea {
+    font-size: .85rem;
+    font: var(--font);
+}
+
+.contact-form input {
+    border: 0;
+    padding-left: 0;
+    border-bottom: thin solid var(--gray-dark-color);
+}
+
+.contact-form textarea {
+    border: thin solid var(--gray-dark-color);
+    /* Evitar que se puede cambiar de tamaño el textarea */
+    resize: none;
+}
+
+/* Cambiamos los estilo del botón */
+.contact-form input[type="submit"] {
+    /* No respeta el texto bold, al cambiar los parámetros un poco más arriba */
+    font-weight: bold;
+    margin-top: 0;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+
+.contact-form input[type="submit"]:hover {
+    opacity: .75;
+}
+
+
+.contact-form *::placeholder {
+    color: var(--gray-dark-color);
+}
+
+.contact-form-response {
+    padding: 1rem;
+    width: 400px;
+    text-align: center;
+    background-color: var(--white-color);
+}
+
+.contact-form-response svg {
+    margin-top: 2rem;
+    width: 4rem;
+    height: 4rem;
+    fill:var(--first-color);
+}
+
+.modal#gracias:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Mediante una media query, cambiamos los estilos del formulario, usando grid css */
+@media screen and (min-width: 1024px){
+    .contact-form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 1rem;
+    }
+
+    .contact-form textarea,
+    .contact-form-loader {
+        grid-column: span 2;
+    }
+
+    .contact-form input[type="submit"] {
+        margin-left: 0;
+    }
+}
+
+/* Opcional personal, no usar, solo fue una prueba */
+/* .contact-form > textarea {
+    min-width: 320px;
+} */
+
+/* HeroImage*/
+
+.hero-image {
+    /* Definimos una variable desde el html, para poder reutilizar este componente
+    únicamente modificando la ruta de la imagen, para otros apartados*/
+    background-image: var(--hero-image) ;
+    background-repeat: no-repeat;
+    /* La imagen se adapta al contenedor */
+    background-size: cover;
+    /* centramos la imagen tanto en x, como en y */
+    background-position: center;
+    /* Definimos una variable, para especificar si la posicion de la imagen será fija
+    dentro de la pantalla o se desplazará con su bloque contenedor*/
+    background-attachment: var(--hero-attachment);
+}
+
+/* Agregamos maquetación a esta clase, para evitar que el contenido del slide, para el carousel, se desborde */
+.hero-image-content {
+    width: 100%;
+    min-width: 320px;
+}
+
+.hero-image-opacity {
+   width: 100%;
+   min-height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   background-color: var(--hero-opacity-color);
+}
+
+.hero-image-title {
+    font-size: 7.5vw;
+    color: var(--hero-text-color);
+}
+
+/* Menu */
+
+.menu-btn {
+    outline: thin solid var(--first-color);
+    border: 0;
+    cursor: pointer;
+    background-color: var(--second-color);
+}
+
+.menu-btn svg {
+    fill: var(--first-color);
+}
+
+.menu {
+    position: fixed;
+    left: 0;
+    bottom: var(--header-hight);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--second-color);
+    /* Desaparecer menu */
+    opacity: 0;
+    /* Deshabilitar la reacción a interactividad del elemento html seleccionado */
+    pointer-events: none;
+    /* Transición del menú */
+    transition: opacity 0.5s ease;
+}
+
+.menu.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu a {
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: var(--first-color)
+}
+
+.menu a:hover {
+    color: var(--white-color);
+    background-color: var(--first-color);
+}
+
+/* media query para el menu en la versión desktop*/
+@media screen and (min-width: 1024px) {
+    
+    .menu-btn {
+        display: none;
+    }
+
+    .menu {
+        position: static;
+        width: auto;
+        flex-direction: row;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .menu a {
+        padding: 0 1rem;
+    }
+
+    .menu a:last-child {
+        padding-right: 0;
+    }
+
+    .menu a:hover {
+        background-color: transparent;
+    }
+}
+
+/* Modal */
+
+.modal {
+    /* Posicionamos el modal de manera fija, con el valor de position:fixed */
+    position: fixed;
+    /* colocamos el valor de z-index en 999 para que siempre se encuentre arriba de cualquier contenido */
+    z-index: 999;
+    /* colocamos los 4 márgenes en 0, con lo cual vamos a lograr que el elemento ocupe prácticamente toda la pantalla */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* Utilizamos flexbox para hacer un centrado perfecto */
+    display: flex;
+    /* Alineamos en x */
+    justify-content: center;
+    /* alineamos en y */
+    align-items: center;
+    /* Asignamos un color de fondo, en este caso, un color negro con transparencia */
+    background-color: var(--black-alpha-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 1s;
+}
+
+/* Colocamos el contenido debajo del elemento modal-close (svg de tachita de cierre) */
+.modal-content {
+    position: relative;
+}
+
+/* Colocamos el svg de la tachita de cierre, en una posición que quede encima del contenido del modal */
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.modal-close svg {
+    width: 3rem;
+    height: 3rem;
+    fill: var(--first-color);
+}
+
+/* Mediante una pseudoclase llamada target haciendo referencia al id interno
+mediante un selector avanzado de css, "||" (usando el caracter pipe), definimos que cualquier id, que comience con la palabra trabajo, 
+mediante target, pueda usar el modal */
+.modal[|id|="trabajo"]:target {
+      opacity: 1;
+      pointer-events: auto;
+}
+
+/* ProgressBar */
+
+/* Editamos la etiqueta semántica de progress en html */
+progress {
+    width: 100%;
+    height: 1rem;
+    background-color: var(--gray-color) ;
+}
+
+/* Usamos pseudoclases para los estilos en diferentes navegadores, primero para Chrome*/
+
+/* Cambiamos el color del progreso total (fondo de la barra) */
+progress::-webkit-progress-bar {
+    background-color: var(--gray-color);
+}
+
+/* Definimos el color del valor de la barra (porcentaje definido) */
+progress::-webkit-progress-value {
+    background-color: var(--gray-dark-color);
+}
+
+/* Para Firefox no es necesario usar pseudoclases para el fondo de la barra,
+pero sí para el color de la barra de porcentaje */
+progress::-moz-progress-bar {
+    background-color: var(--gray-dark-color);
+}
+
+.progress {
+    margin: 1rem auto;
+}
+
+.progress > p {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: .85rem;
+}
+
+/* UTILITIES */
+
+.avatar {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.bg-gray-light {
+    background-color: var(--gray-light-color);
+}
+
+.box-shadow-1 {
+    box-shadow: .25rem .25rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+.btn {
+    border-radius: .5rem;
+    padding: 1rem;
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white-color);
+    background-color: var(--first-color);
+}
+
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--max-widht);
+}
+
+/* Mediante la propiedad filter, activamos la escala de grises en la imagen, con 
+la clase -gray-scale */
+.gray-scale {
+    filter: grayscale(1);
+}
+
+.none {
+    display: none;
+}
+
+.section {
+    padding: 2rem 1rem;
+}
+
+/* Definimos los estilos para los títulos de sección */
+.section-title {
+    border-top: thin solid var(--first-color) ;
+    border-bottom: thin solid var(--first-alpha-color);
+    margin: 2rem auto;
+    padding: .5rem 1rem;
+    width: 250px;
+    text-align: center;
+    color: var(--title-color);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-first-color {
+    color: var(--first-color);
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+@media screen and (min-width: 1024px) {
+
+    /* Mediante esta clase, aprovechamos el tamaño completo de la pantalla, para mostrar el contenido de la sección donde se asigne dicha clase */
+    .full-lg-screen {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .text-lg-center {
+        text-align: center;
+    }
+
+    .text-lg-left {
+        text-align: left;
+    }
+
+    .text-lg-right {
+        text-align: right;
+    }
+}
+
+
+/* SITE STYLES */
+
+.about > article {
+    margin-bottom: 2rem;
+}
+
+.contact-card {
+    margin: 1rem auto;
+    padding: 1rem;
+    width: 100%;
+    height: 144px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contact-card > svg {
+    width: 2rem;
+    height: 2rem;
+    fill: var(--first-color);
+}
+
+.contact-card > small {
+    margin-top: -1rem;
+}
+
+.footer {
+    margin-bottom: var(--header-hight);
+    padding: .5rem;
+    text-align: center;
+    color: var(--white-color);
+    background-color: var(--third-color);
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    padding: 1rem;
+    width: 100%;
+    height: var(--header-hight);
+    background-color: var(--second-color);
+}
+
+.header>.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: var(--first-color);
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.portfolio-card {
+    /* Asignamos este valor, para poder posicionar la información encima del contenedor padre */
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    display: block ;
+}
+
+.portfolio-card img {
+    width: 100%;
+    height: 100%;
+    /* Mediante esta propiedad, evitamos que las imagenes pierdan su relación y aspecto, respecto al contenedor */
+    object-fit: cover;
+}
+
+.portfolio-card-info {
+    /* Posicionamos este elemento encima de la imagen mediante una posicion absoluta*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--first-alpha-color);
+    color: var(--white-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: all .5s ease-in-out;
+}
+
+.portfolio-card:hover .portfolio-card-info{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.portfolio-card-info > div {
+    padding: 1rem;
+    border: thin solid var(--white-color);
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-modal {
+    padding: 1rem;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    /* El color original es el --white-color, pero coloqué el color --gray-light-color por cuestión de gustos */
+    background-color: var(--gray-light-color);
+}
+
+.portfolio-modal h3 {
+    border-bottom: medium solid var(--first-color);
+    padding: .5rem 0;
+    margin: 1rem auto;
+    color: var(--title-color);
+}
+
+.portfolio-details {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    /* Definimos el tamaño de las filas, que se generan implicitamente, y le asignamos un valor
+    de 2rem, para separar los elementos small, divido en 2 columnas */
+    grid-auto-rows: 2rem;
+}
+
+.portfolio-details b {
+    color: var(--first-color);
+}
+
+.service-card {
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.service-card h3 {
+    color: var(--title-color);
+}
+
+.service-card svg {
+    margin-bottom: 1.25rem;
+    fill: var(--first-color);
+    /* Estos parámetros son personalizados para aumentar el tamaño de los svg de servicios */
+    width: 3rem;
+    height: 3rem;
+}
+
+.social-media a {
+    padding: 0 .4rem;
+    text-decoration: none;
+}
+
+.social-media svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+
+    .contact-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 48%);
+        justify-content: space-between;
+    }
+
+    .portfolio > .container {
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+    }
+
+    .portfolio-modal {
+        max-width: 800px;
+        flex-direction: row;
+    }
+
+    .portfolio-info {
+        margin-left: 1rem;
+        align-self: center;
+    }
+
+    .portfolio .section-title {
+        grid-column: span 2;
+    }
+
+    .services > .container {
+        display: grid;
+        grid-template-columns: repeat(2, 45%);
+        justify-content: space-between;
+        align-content: center;
+    }
+
+    .services .section-title {
+        grid-column: span 2;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    
+    /* En el contenedor about, asignamos lo siguiente para desktop*/
+    .about {
+        /* Agregamos display grid*/
+        display: grid;
+        /* repetimos 3 veces los elementos al 30% */
+        grid-template-columns: repeat(3, 30%);
+        /* El espacio sobrante, lo usamos para separar los 3 elementos*/
+        justify-content: space-between;
+        /* Alineamos los elementos en el centro */
+        align-content: center;
+    }
+
+    .contact-cards {
+        grid-template-columns: repeat(4, 24%);
+    }
+
+    .footer {
+        margin-bottom: 0;
+    }
+    
+    .header {
+        /* al usar sticky no tapa el contenido que está inmediatamente después en el html */
+        position: sticky;
+        /* Colocamos una posición fija hasta arriba */
+        top: 0;
+        padding: .5rem;
+        /* Mediante calc podemos realizar operaciones aritméticas */
+        height: calc(var(--header-hight) - .5rem);
+    }
+
+    .portfolio>.container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .portfolio .section-title {
+        grid-column: span 3;
+    }
+
+    .services > .container {
+        grid-template-columns: repeat(3, 30%);
+    }
+
+    .services .section-title {
+        grid-column: span 3;
+    }
+
+    
+}

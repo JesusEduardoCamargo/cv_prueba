@@ -1,2 +1,2 @@
-# cv_prueba
-Repositorio de maqueta de CV
+#Talle de maquetación
+Repositorio de prueba de portafolio CV
